@@ -35,8 +35,18 @@
 //  item ["Name"] is a human-readable name of the preset.
 var	g_presets = [];
 var	g_numOfPresets	= 0;
-var	g_defaultPreset = [0, 0, 0, 0, 0, 0, -50, 0, -150, -50, 0, -150, 50, 0, 0, 150, -50, -150, 0, 50, -50, 0, 150, 50, 0, 50, -50];
+var	g_defaultPreset = [0, 13, -13, 23, -23, 0, -50, 0, -150, -50, 0, -150, 50, 0, 0, 150, -50, -150, 0, 50, -50, 0, 150, 50, 0, 50, -50];
 var	g_szDefaultPresetName	= "default";
+
+// The g_notesTuning array contains the tunning in cents for each
+// conventional note (without exotic accidentals).
+var g_notesTuning = {
+		"Fbb":-36, "Cbb":-34, "Gbb":-32, "Dbb":-30, "Abb":-28, "Ebb":-26, "Bbb":-24,
+		"Fb": -22, "Cb": -20, "Gb": -18, "Db": -16, "Ab": -14, "Eb": -12, "Bb": -10,
+		"F":   -8,  "C":  -6, "G":   -4, "D":   -2, "A":    0, "E":    2, "B":    4,
+		"F#":   6,  "C#":  8, "G#":  10, "D#":  12, "A#":  14, "E#":  16, "B#":  18,
+		"Fx":  20,  "Cx": 22, "Gx":  24, "Dx":  26, "Ax":  28, "Ex":  30, "Bx":  32
+}
 
 var	g_form;
 var	g_bDirty	= false;
@@ -134,9 +144,16 @@ function applyValues()
 			{	if (cursor.isChord())
 				{	for (var chordnote = 0; chordnote < cursor.chord().notes; chordnote++)
 					{	var note	= cursor.chord().note(chordnote);
-						idx		= note.userAccidental;
-						if (idx < preset.length)
-							note.tuning = preset[idx];
+						var idAccidental = note.userAccidental;
+						var noteName = note.name;
+						
+						var noteTuning = g_notesTuning[noteName];
+						if(typeof noteTuning == 'undefined') {
+							noteTuning = 0;
+						}
+						
+						if (idAccidental < preset.length)
+							note.tuning = noteTuning + parseInt(preset[idAccidental]);
 					}
 				}
 				cursor.next();
