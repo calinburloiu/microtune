@@ -35,7 +35,7 @@
 //  item ["Name"] is a human-readable name of the preset.
 var	g_presets = [];
 var	g_numOfPresets	= 0;
-var	g_defaultPreset = [0, 13, -13, 23, -23, 0, -50, 0, -150, -50, 0, -150, 50, 0, 0, 150, -50, -150, 0, 50, -50, 0, 150, 50, 0, 50, -50];
+var	g_defaultPreset = [0, 0, 0, 0, 0, 0, -50, 0, -150, -50, 0, -150, 50, 0, 0, 150, -50, -150, 0, 50, -50, 0, 150, 50, 0, 50, -50];
 var	g_szDefaultPresetName	= "default";
 
 // The g_notesTuning array contains the tunning in cents for each
