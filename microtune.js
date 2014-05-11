@@ -148,7 +148,7 @@ function applyValues()
 						var noteName = note.name;
 						
 						var noteTuning = g_notesTuning[noteName];
-						if(typeof noteTuning == 'undefined') {
+						if(typeof noteTuning === 'undefined') {
 							noteTuning = 0;
 						}
 						
